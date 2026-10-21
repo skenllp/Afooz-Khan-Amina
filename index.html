@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation – Afooz Khan &amp; Amina | 16.11.2026</title>
+  <meta name="description"
+    content="You are cordially invited to the Walima wedding of Afooz Khan &amp; Amina on Monday, 16 November 2026 at Win Touch, Palm Meadows, Kasaragod." />
+
+  <!-- Open Graph / Social Media Preview (WhatsApp, Instagram, Telegram, Facebook, iMessage) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Afooz Khan &amp; Amina" />
+  <meta property="og:title" content="Wedding Invitation – Afooz Khan &amp; Amina | 16.11.2026" />
+  <meta property="og:description" content="Monday, 16 November 2026 · Win Touch, Palm Meadows, Kasaragod" />
+  <meta property="og:image:alt" content="Afooz Khan &amp; Amina Wedding Invitation" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wedding Invitation – Afooz Khan &amp; Amina | 16.11.2026" />
+  <meta name="twitter:description" content="Monday, 16 November 2026 · Win Touch, Palm Meadows, Kasaragod" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Pinyon+Script&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Noto+Serif+Malayalam:wght@300;400;500;600&family=Scheherazade+New:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Canvas Confetti Library (sini-suvin party popper style) -->
+  <script src="confetti.browser.min.js"></script>
+  <script>window.confetti || document.write('<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"><\/script>')</script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════
+       COVER SCREEN  (shown first, removed on enter)
+  ═══════════════════════════════════════════ -->
+  <div id="cover" aria-label="Wedding invitation cover">
+
+    <!-- intro-frame.png full background -->
+    <div class="cover-bg" aria-hidden="true"></div>
+
+    <!-- Bottom gradient so text pops -->
+    <div class="cover-vignette" aria-hidden="true"></div>
+
+    <!-- Content centred over the door -->
+    <div class="cover-content">
+      <p class="cover-bismillah">بِسْمِ اللهِ الرَّحْمُ نِ الرَّحِيْمِ</p>
+      <p class="cover-label">You are cordially invited to the wedding of</p>
+      <h1 class="cover-names">Afooz Khan</h1>
+      <p class="cover-amp">&amp;</p>
+      <p class="cover-names">Amina</p>
+      <p class="cover-date">16 &middot; 11 &middot; 2026</p>
+
+      <button id="open-btn" class="btn-open-invitation" type="button" aria-label="Open the wedding invitation">
+        <svg class="btn-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+        <span>Open Invitation</span>
+      </button>
+      <!-- <p class="cover-hint">Tap to begin &nbsp;&bull;&nbsp; Insha Allah</p> -->
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       VIDEO OVERLAY  (fullscreen intro video)
+  ═══════════════════════════════════════════ -->
+  <div id="video-overlay" aria-label="Wedding intro video" role="dialog" aria-modal="true">
+    <video id="reveal-video" playsinline webkit-playsinline preload="auto" disablepictureinpicture muted
+      aria-label="Afooz Khan and Amina wedding intro video">
+      <source src="afooz-amina.mp4" type="video/mp4" />
+    </video>
+    <div id="video-fade-mask" class="video-fade-out" aria-hidden="true"></div>
+    <button id="skip-btn" class="btn-skip" type="button" aria-label="Skip intro video">Skip &rsaquo;</button>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 1 – HERO (Balcony Backdrop with Details)
+  ═══════════════════════════════════════════ -->
+  <section id="hero" aria-label="Wedding invitation hero">
+    <div class="hero-bg" role="img" aria-label="Lake view wedding invitation backdrop"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-card fade-in">
+      <!-- Bismillah -->
+      <p class="hero-bismillah" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+
+      <div class="hero-ornament-top" aria-hidden="true">
+        <span></span><i>✦</i><span></span>
+      </div>
+
+      <!-- Small wish / request text -->
+      <p class="hero-wish-lead">Together with their families</p>
+      <!-- <p class="hero-wish-sub">We request the honour of your presence<br>at the wedding of</p> -->
+
+      <!-- Groom -->
+      <div class="hero-couple-group">
+        <h1 class="hero-couple-name">Afooz Khan</h1>
+        <!-- <p class="hero-parent-line">Son of Abdul Rouf Khan &amp; Asuda bi</p> -->
+      </div>
+
+      <!-- Ampersand divider -->
+      <div class="hero-amp-divider" aria-hidden="true">
+        <span class="amp-line"></span>
+        <span class="hero-amp">&amp;</span>
+        <span class="amp-line"></span>
+      </div>
+
+      <!-- Bride -->
+      <div class="hero-couple-group">
+        <h2 class="hero-couple-name">Amina</h2>
+        <!-- <p class="hero-parent-line">Daughter of Abdul Razak &amp; Aleema</p> -->
+      </div>
+
+      <div class="hero-ornament-btm" aria-hidden="true">
+        <span></span><i>❦</i><span></span>
+      </div>
+
+      <!-- Date & Venue block -->
+      <div class="hero-date-block">
+        <div class="hero-date-row">
+          <span class="hero-date-day">Monday</span>
+          <span class="hero-date-num">16</span>
+          <span class="hero-date-my">November<br>2026</span>
+        </div>
+        <!-- <p class="hero-time-loc">Walima Wedding &nbsp;&bull;&nbsp; Win Touch, Palm Meadows, Kasaragod</p> -->
+        <p class="hero-insha-tag">Insha Allah</p>
+      </div>
+
+      <!-- Scroll cue -->
+      <button class="scroll-cue" onclick="document.getElementById('invitation').scrollIntoView({behavior:'smooth'})"
+        aria-label="Scroll down to explore">
+        <span>SCROLL</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2 – INVITATION TEXT
+  ═══════════════════════════════════════════ -->
+  <section id="invitation" aria-label="Invitation message">
+    <p class="insha fade-in">✦ Insha Allah ✦</p>
+    <h1 class="section-title fade-in">The Invitation</h1>
+    <div class="gold-divider fade-in"><span class="ornament">❧</span></div>
+
+    <p class="invitation-body fade-in">
+      In the name of Allah, the Most Beneficent, the Most Merciful.<br><br>
+      You are warmly invited to join us and share in our joy as we begin this blessed journey together.
+      Your gracious presence and prayers will make our celebration truly blessed.
+    </p>
+
+    <!-- Scratch-to-Reveal Heart placed before Event Info -->
+    <!-- SVG ClipPath definition for 100% full-fill heart shape -->
+    <svg width="0" height="0" style="position: absolute; pointer-events: none;" aria-hidden="true">
+      <defs>
+        <clipPath id="scratchHeartClip" clipPathUnits="objectBoundingBox">
+          <path d="M 0.5, 0.95 C 0.5, 0.95, 0.03, 0.64, 0.03, 0.31 C 0.03, 0.14, 0.15, 0.04, 0.28, 0.04 C 0.38, 0.04, 0.46, 0.11, 0.5, 0.21 C 0.54, 0.11, 0.62, 0.04, 0.72, 0.04 C 0.85, 0.04, 0.97, 0.14, 0.97, 0.31 C 0.97, 0.64, 0.5, 0.95, 0.5, 0.95 Z" />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <div class="scratch-wrapper fade-in">
+      <p class="scratch-eyebrow">✦ Our Forever Begins ✦</p>
+      <h2 class="scratch-title">Scratch to Reveal</h2>
+      <div class="gold-divider"><span class="ornament">❧</span></div>
+
+      <!-- Canvas scratch card over heart reveal -->
+      <div class="scratch-card-container">
+
+        <!-- The revealed content (full fill heart + wedding date) -->
+        <div class="scratch-reveal" id="scratchReveal" aria-hidden="true">
+          <div class="reveal-date-inner">
+            <p class="reveal-you-invited">✦ You're Invited ✦</p>
+            <p class="reveal-date-num">16 · 11 · 2026</p>
+            <p class="reveal-day">Monday &nbsp;•&nbsp; Walima Wedding</p>
+            <!-- <p class="reveal-location">Win Touch, Palm Meadows, Kasaragod</p> -->
+             
+            <p class="reveal-time">Insha Allah</p>
+          </div>
+        </div>
+
+        <!-- Canvas drawn on top — user scratches this away -->
+        <canvas id="scratchCanvas" class="scratch-canvas"
+          aria-label="Scratch here to reveal the wedding date"
+          role="img"></canvas>
+
+        <!-- Hint shown until scratching begins -->
+        <div class="scratch-hint" id="scratchHint">
+          <svg class="scratch-finger-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="10" cy="2.5" r="1.2" fill="currentColor" opacity="0.8"/>
+            <path d="M7.5 4l-1-1M12.5 4l1-1M10 0.5v1.2" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+            <path d="M10 5.2v6.8l-2.2-1.5a1.5 1.5 0 0 0-2.1 2.2l4.6 5.2a4 4 0 0 0 3 1.6h3.2a3.4 3.4 0 0 0 3.4-3.4v-4.6a1.7 1.7 0 0 0-1.7-1.7H17v-1a1.7 1.7 0 0 0-1.7-1.7H14v-1.6a1.7 1.7 0 0 0-1.7-1.7h-.6a1.7 1.7 0 0 0-1.7 1.7z" fill="rgba(255,255,255,0.2)"/>
+          </svg>
+          <span>Scratch here</span>
+        </div>
+      </div>
+
+      <p class="scratch-sub" id="scratchSub">Reveal a special surprise &nbsp;✦</p>
+    </div>
+
+    <!-- Event info cards -->
+    <div class="event-cards fade-in">
+      <div class="event-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <circle cx="12" cy="15" r="1.2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div class="card-label">Walima Day</div>
+        <div class="card-value">Monday<br>16 November 2026</div>
+        <div class="card-sub">Insha Allah</div>
+      </div>
+      <div class="event-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="card-label">Time</div>
+        <div class="card-value">To be Announced</div>
+        <div class="card-sub">Walima Ceremony</div>
+      </div>
+      <div class="event-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c-2 2-3 4-3 6h6c0-2-1-4-3-6z" fill="currentColor" fill-opacity="0.2"></path>
+            <path d="M4 11h16v10H4z"></path>
+            <path d="M12 15c-1.5 0-2.5 1-2.5 2.5V21h5v-3.5c0-1.5-1-2.5-2.5-2.5z" fill="currentColor" fill-opacity="0.3"></path>
+            <path d="M7 11V7l1-1"></path>
+            <path d="M17 11V7l-1-1"></path>
+            <path d="M12 2v1"></path>
+          </svg>
+        </div>
+        <div class="card-label">Venue</div>
+        <div class="card-value">Win Touch, Palm Meadows</div>
+        <div class="card-sub">Kasaragod</div>
+      </div>
+       
+      
+    </div>
+
+    <!-- Confetti canvas (full-screen, pointer-events:none) -->
+    <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 3 – COUNTDOWN
+  ═══════════════════════════════════════════ -->
+  <section id="countdown" aria-label="Wedding countdown">
+    <p class="insha fade-in">✦ The Big Day ✦</p>
+    <h2 class="section-title fade-in">Counting Down</h2>
+    <div class="gold-divider fade-in"><span class="ornament">❧</span></div>
+
+    <div class="big-date fade-in">
+      16 <span class="dot">•</span> 11 <span class="dot">•</span> 2026
+    </div>
+
+    <div class="countdown-grid fade-in" id="countdown-grid">
+      <div class="cd-unit">
+        <div class="cd-number"><span id="cd-days">00</span></div>
+        <div class="cd-label">Days</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-number"><span id="cd-hours">00</span></div>
+        <div class="cd-label">Hours</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-number"><span id="cd-minutes">00</span></div>
+        <div class="cd-label">Minutes</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-number"><span id="cd-seconds">00</span></div>
+        <div class="cd-label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="islamic-pill fade-in">
+      <span>6 Jumada II 1448 AH</span>
+      <span class="pipe">|</span>
+      <span>6 جمادى الآخرة 1448</span>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 4 – THE COUPLE
+  ═══════════════════════════════════════════ -->
+  <section id="couple" aria-label="The couple">
+    <p class="insha fade-in">✦ Two Souls, One Destiny ✦</p>
+    <h2 class="section-title fade-in">The Couple</h2>
+    <div class="gold-divider fade-in"><span class="ornament">❧</span></div>
+    <p class="section-sub fade-in">United in love, guided by faith</p>
+
+    <div class="couple-wrapper fade-in">
+      <!-- Groom -->
+      <div class="person-card groom">
+        <p class="person-role">The Groom</p>
+        <h3 class="person-name">Afooz<br>Khan</h3>
+        <p class="person-detail">
+          <strong>Son of</strong><br>
+          Abdul Rouf Khan &amp; Asuda bi
+        </p>
+      </div>
+
+      <!-- Divider -->
+      <div class="couple-divider">
+        <span class="couple-divider-sym">&amp;</span>
+      </div>
+
+      <!-- Bride -->
+      <div class="person-card bride">
+        <p class="person-role">The Bride</p>
+        <h3 class="person-name">Amina</h3>
+        <p class="person-detail">
+          <strong>Daughter of</strong><br>
+          Abdul Razak &amp; Aleema
+        </p>
+      </div>
+    </div>
+
+    <!-- Hosted by -->
+    <!-- <div class="hosted-by fade-in">
+      <p class="label">with Love by</p>
+      <p class="hosted-names">Abdul Rouf Khan &amp; Asuda bi</p>
+      <p class="hosted-sub">
+        Groom's Family
+      </p>
+    </div> -->
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 5 – VENUE & MAP
+  ═══════════════════════════════════════════ -->
+  <section id="venue" aria-label="Wedding venue and location">
+    <p class="insha fade-in">✦ Join Us Here ✦</p>
+    <h2 class="section-title fade-in">The Venue</h2>
+    <div class="gold-divider fade-in">
+      <span class="ornament">❧</span>
+    </div>
+
+    <div class="venue-card fade-in">
+      <div class="venue-icon">
+        <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 8C27.5 8 25 13 25 19V26H39V19C39 13 36.5 8 32 8Z" fill="var(--gold-light)" opacity="0.95"/>
+          <path d="M32 4V8M32 4L30 6M32 4L34 6" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 16C13.5 16 12 19 12 23V26H20V23C20 19 18.5 16 16 16Z" fill="var(--gold-light)" opacity="0.85"/>
+          <path d="M16 12V16" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M48 16C45.5 16 44 19 44 23V26H52V23C52 19 50.5 16 48 16Z" fill="var(--gold-light)" opacity="0.85"/>
+          <path d="M48 12V16" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M8 26H56V50H8V26Z" stroke="var(--gold-light)" stroke-width="1.6"/>
+          <path d="M27 50V40C27 37 29 35 32 35C35 35 37 37 37 40V50" stroke="var(--gold-light)" stroke-width="1.6" fill="rgba(212,175,55,0.2)"/>
+          <path d="M14 50V42C14 39.5 16 38 18 38C20 38 22 39.5 22 42V50" stroke="var(--gold-light)" stroke-width="1.4"/>
+          <path d="M42 50V42C42 39.5 44 38 46 38C48 38 50 39.5 50 42V50" stroke="var(--gold-light)" stroke-width="1.4"/>
+          <path d="M5 50H59V54H5V50Z" fill="var(--gold-light)" opacity="0.95"/>
+        </svg>
+      </div>
+      <h3 class="venue-name">Win Touch, Palm Meadows</h3>
+      <p class="venue-address">KASARAGOD, KERALA, INDIA</p>
+      <div class="venue-date-box">
+        <span class="v-date-part">MONDAY</span>
+        <span class="sep">|</span>
+        <span class="v-date-part v-date-main">16 NOVEMBER 2026</span>
+        <span class="sep">|</span>
+        <span class="v-date-part">WALIMA WEDDING</span>
+      </div>
+    </div>
+
+    <!-- Venue Map Embed -->
+    <div class="map-wrapper fade-in">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.395111009121!2d75.05226007507386!3d12.549557387729227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4835bb19adcdd%3A0x160f8216c9c52fdc!2sWinTouch%20Palm%20Meadows!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+        class="venue-map-iframe"
+        width="100%"
+        height="420"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Win Touch Palm Meadows Location Map">
+      </iframe>
+    </div>
+
+    <a href="https://maps.app.goo.gl/1SLvAGiQn2GSfWw2A" target="_blank" rel="noopener noreferrer"
+      class="map-cta fade-in" aria-label="Get directions to Win Touch, Palm Meadows, Kasaragod">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path
+          d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+      </svg>
+      GET DIRECTIONS
+    </a>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 6 – BLESSINGS & NIKKAH DUA
+  ═══════════════════════════════════════════ -->
+  <section id="blessings" aria-label="Wedding blessings and prayers">
+    <p class="insha fade-in">✦ Islamic Blessing ✦</p>
+    <h2 class="section-title fade-in">Nikkah Dua &amp; Blessings</h2>
+    <div class="gold-divider fade-in"><span class="ornament">❧</span></div>
+
+    <!-- Nikkah Barakallah Arabic Dua Card -->
+    <div class="dua-card fade-in">
+      <div class="dua-card-border-inner">
+        <div class="dua-bismillah" dir="rtl" lang="ar">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+        <h3 class="dua-arabic" dir="rtl" lang="ar">
+          بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
+        </h3>
+        <div class="dua-divider" aria-hidden="true">
+          <span></span><i class="dua-star">✦</i><span></span>
+        </div>
+        <p class="dua-transliteration">
+          "Bārakallāhu laka wa bāraka ‘alayka wa jama‘a baynakumā fī khayr"
+        </p>
+        <p class="dua-translation">
+          "May Allah bless you, shower His blessings upon you, and unite you both in goodness and love."
+        </p>
+        <span class="dua-source">Sunan Abi Dawud</span>
+      </div>
+    </div>
+
+    <p class="blessing-text fade-in">
+      We invite you to share in our joy as we begin our new life together and seek your
+      prayers as we embark on this blessed journey. 
+    </p>
+
+    <div class="heart-sep fade-in">♡</div>
+
+    <p class="blessing-text fade-in blessing-translation">
+      We regret that we could not personally invite each and every one to attend in person.
+      Please accept our heartfelt apologies, and know that your presence in our prayers
+      is cherished beyond words.
+    </p>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 7 – SCHEDULE / TIMELINE
+  ═══════════════════════════════════════════ -->
+  <!-- <section id="schedule" aria-label="Wedding day schedule">
+    <p class="insha fade-in">✦ The Wedding Day ✦</p>
+    <h2 class="section-title fade-in">Event Timeline</h2>
+    <div class="gold-divider fade-in"><span class="ornament">❧</span></div>
+
+    <div class="timeline fade-in" role="list">
+ 
+
+      <div class="tl-item" role="listitem">
+        <div class="tl-content"></div>
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-content">
+          <div class="tl-time">6:30 PM</div>
+          <div class="tl-title">Nikah Ceremony</div>
+          <div class="tl-desc">The sacred marriage ceremony</div>
+        </div>
+      </div>
+
+       
+ 
+
+    </div>
+  </section> -->
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer id="footer" aria-label="Footer">
+    <div class="footer-arabic">With Love &amp; Gratitude</div>
+    <div class="footer-logo">Afooz Khan &amp; Amina</div>
+
+    <div class="footer-divider"></div>
+
+    <p class="footer-body">
+      "And of His signs is that He created for you from yourselves mates that you may find
+      tranquillity in them, and He placed between you affection and mercy."
+      <em> — Quran 30:21</em>
+    </p> 
+  </footer>
+
+
+  <!-- JavaScript -->
+  <script src="main.js" defer></script>
+</body>
+
+</html>
