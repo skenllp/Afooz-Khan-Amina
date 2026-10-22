@@ -323,57 +323,290 @@
       return;
     }
 
-    var duration = 1000; // 1.0 second burst duration (reduced from 2.5s)
-    var end = Date.now() + duration;
-    // Romantic rose, ruby red, luxury gold, and ivory celebration colors
-    var colors = ['#C82346', '#E84A6F', '#D4516E', '#D4AF37', '#B8860B', '#FFF8EC', '#FFFFFF'];
+    var diamond = null;
+    try {
+      diamond = window.confetti.shapeFromPath({ path: 'M 10 0 L 20 10 L 10 20 L 0 10 Z' });
+    } catch(e) {}
+    var shapes = diamond ? ['square', 'circle', 'star', diamond] : ['square', 'circle', 'star'];
 
-    function frame() {
-      if (typeof window.confetti === 'function') {
-        var leftCount = Math.floor(Math.random() * 2) + 3; // 3-4 particles
-        var rightCount = Math.floor(Math.random() * 2) + 3;
+    // Romantic rose, ruby red, luxury gold, champagne, and ivory celebration colors
+    var colors = ['#D4AF37', '#F2DC9B', '#B8860B', '#C82346', '#8E1A35', '#E84A6F', '#F4ECD2', '#FFF8EC', '#FFFFFF'];
 
-        // Left side: fire from origin { x: 0, y: 0.65 } at angle 60
-        window.confetti({
-          particleCount: leftCount,
-          angle: 60,
-          spread: 55,
-          startVelocity: 55,
-          gravity: 0.9,
-          ticks: 200,
-          origin: { x: 0, y: 0.65 },
-          colors: colors,
-          shapes: ['square', 'circle'],
-          scalar: Math.random() * 0.4 + 0.8,
-          zIndex: 9999,
-          disableForReducedMotion: true
-        });
+    var base = {
+      colors: colors,
+      shapes: shapes,
+      ticks: 60,          // 1.0 second flutter lifetime (reduced from 2.5s)
+      gravity: 1.15,      // realistic gravity
+      decay: 0.91,        // air drag
+      scalar: 1.05,
+      zIndex: 9999,
+      disableForReducedMotion: true
+    };
 
-        // Right side: fire from origin { x: 1, y: 0.65 } at angle 120
-        window.confetti({
-          particleCount: rightCount,
-          angle: 120,
-          spread: 55,
-          startVelocity: 55,
-          gravity: 0.9,
-          ticks: 200,
-          origin: { x: 1, y: 0.65 },
-          colors: colors,
-          shapes: ['square', 'circle'],
-          scalar: Math.random() * 0.4 + 0.8,
-          zIndex: 9999,
-          disableForReducedMotion: true
-        });
+    // Festive multi-angle sequence alternating every 0.5 seconds:
+    // 1. Grand 3-cannon celebratory salvo (left, center, right)
+    // 2. Left cannon shooting up and diagonally inward
+    // 3. Right cannon shooting up and diagonally inward
+    // 4. Center fountain blasting straight up
+    // 5. Dual-cannon criss-cross
+    var salvos = [
+      function() { // 1. Grand 3-cannon celebratory salvo (left, center, right)
+        window.confetti(Object.assign({}, base, { particleCount: 35, angle: 60, spread: 55, startVelocity: 55, origin: { x: 0.1, y: 0.75 } }));
+        window.confetti(Object.assign({}, base, { particleCount: 45, angle: 90, spread: 80, startVelocity: 62, origin: { x: 0.5, y: 0.75 } }));
+        window.confetti(Object.assign({}, base, { particleCount: 35, angle: 120, spread: 55, startVelocity: 55, origin: { x: 0.9, y: 0.75 } }));
+      },
+      function() { // 2. Left cannon shooting up and diagonally inward
+        window.confetti(Object.assign({}, base, { particleCount: 50, angle: 55, spread: 60, startVelocity: 60, origin: { x: 0.05, y: 0.72 } }));
+      },
+      function() { // 3. Right cannon shooting up and diagonally inward
+        window.confetti(Object.assign({}, base, { particleCount: 50, angle: 125, spread: 60, startVelocity: 60, origin: { x: 0.95, y: 0.72 } }));
+      },
+      function() { // 4. Center fountain blasting straight up
+        window.confetti(Object.assign({}, base, { particleCount: 60, angle: 90, spread: 85, startVelocity: 65, origin: { x: 0.5, y: 0.78 } }));
+      },
+      function() { // 5. Dual-cannon criss-cross
+        window.confetti(Object.assign({}, base, { particleCount: 40, angle: 48, spread: 50, startVelocity: 62, origin: { x: 0.05, y: 0.7 } }));
+        window.confetti(Object.assign({}, base, { particleCount: 40, angle: 132, spread: 50, startVelocity: 62, origin: { x: 0.95, y: 0.7 } }));
       }
+    ];
 
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
+    var step = 0;
+    var totalSalvos = 6;
+    salvos[0]();
+    step++;
+
+    var intervalId = setInterval(function() {
+      if (step >= totalSalvos) {
+        clearInterval(intervalId);
+        return;
       }
-    }
-
-    frame();
+      salvos[step % salvos.length]();
+      step++;
+    }, 500);
   }
 
   var launchConfetti = triggerDualPartyPoppers;
 
+  /* Expose for other modules (e.g. RSVP celebration) */
+  window.weddingConfetti = triggerDualPartyPoppers;
+
+})();
+
+
+/* ══════════════════════════════════════════════════════════
+   RSVP FORM  –  guest counter · validation · Google Sheet log
+   ──────────────────────────────────────────────────────────
+   Every response is recorded in the couple's Google Sheet via
+   the Apps Script web app URL configured below.
+   ══════════════════════════════════════════════════════════ */
+(function () {
+  /* 
+   * Paste your Google Apps Script Web App URL here:
+   * (e.g. 'https://script.google.com/macros/s/.../exec')
+   */
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztMDLWdljwP3trlozzuPiLYuSMhqK2xV43zcT2vK-UIjKGVP8ZD-r_7hLC2gF00ebj/exec';
+
+  var MIN_GUESTS = 1;
+  var MAX_GUESTS = 12;
+
+  var form = document.getElementById('rsvp-form');
+  if (!form) return;
+
+  var success = document.getElementById('rsvp-success');
+  var successMsg = document.getElementById('rsvp-success-msg');
+  var summary = document.getElementById('rsvp-summary');
+  var countOut = document.getElementById('rsvp-count');
+  var countInput = document.getElementById('rsvp-guests');
+  var choicesWrap = document.getElementById('rsvp-choices');
+  var submitText = document.getElementById('rsvp-submit-text');
+  var resetBtn = document.getElementById('rsvp-reset');
+
+  var nameInput = document.getElementById('rsvp-name');
+  var phoneInput = document.getElementById('rsvp-phone');
+  var noteInput = document.getElementById('rsvp-note');
+
+  var count = MIN_GUESTS;
+
+  /* ── Guest counter ── */
+  var minusBtn = form.querySelector('.rsvp-step[data-count="-1"]');
+  var plusBtn = form.querySelector('.rsvp-step[data-count="1"]');
+
+  function renderCount() {
+    countOut.textContent = count;
+    countInput.value = count;
+    if (minusBtn) minusBtn.disabled = count <= MIN_GUESTS;
+    if (plusBtn) plusBtn.disabled = count >= MAX_GUESTS;
+  }
+
+  function bump(delta) {
+    count = Math.min(MAX_GUESTS, Math.max(MIN_GUESTS, count + delta));
+    renderCount();
+  }
+
+  if (minusBtn) minusBtn.addEventListener('click', function () { bump(-1); });
+  if (plusBtn) plusBtn.addEventListener('click', function () { bump(1); });
+  renderCount();
+
+  /* ── Validation helpers ── */
+  function setError(input, errorEl, message) {
+    if (input) input.classList.toggle('invalid', !!message);
+    if (errorEl) errorEl.textContent = message || '';
+    return !message;
+  }
+
+  function clearErrors() {
+    [nameInput, phoneInput].forEach(function (el) {
+      if (el) el.classList.remove('invalid');
+    });
+    ['rsvp-name-error', 'rsvp-phone-error', 'rsvp-attending-error', 'rsvp-guests-error'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+    if (choicesWrap) choicesWrap.classList.remove('invalid');
+  }
+
+  nameInput.addEventListener('input', function () {
+    setError(nameInput, document.getElementById('rsvp-name-error'), '');
+  });
+
+  phoneInput.addEventListener('input', function () {
+    setError(phoneInput, document.getElementById('rsvp-phone-error'), '');
+  });
+
+  form.addEventListener('change', function (e) {
+    if (e.target.name === 'attending') {
+      setError(null, document.getElementById('rsvp-attending-error'), '');
+      if (choicesWrap) choicesWrap.classList.remove('invalid');
+    }
+  });
+
+  /* ── Celebration ── */
+  function celebrate() {
+    if (typeof window.weddingConfetti === 'function') {
+      window.weddingConfetti();
+      return;
+    }
+    if (typeof window.confetti === 'function') {
+      window.confetti({
+        particleCount: 70,
+        angle: 90,
+        spread: 75,
+        startVelocity: 60,
+        origin: { x: 0.5, y: 0.65 },
+        colors: ['#D4AF37', '#F2DC9B', '#B8860B', '#C82346', '#FFF8EC', '#FFFFFF'],
+        shapes: ['square', 'circle', 'star'],
+        zIndex: 9999,
+        disableForReducedMotion: true
+      });
+    }
+  }
+
+  /* ── Summary rows ── */
+  function addRow(label, value) {
+    var row = document.createElement('div');
+    row.className = 'rsvp-summary-row';
+
+    var dt = document.createElement('dt');
+    dt.textContent = label;
+
+    var dd = document.createElement('dd');
+    dd.textContent = value;
+
+    row.appendChild(dt);
+    row.appendChild(dd);
+    summary.appendChild(row);
+  }
+
+  /* ── Submit ── */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearErrors();
+
+    var name = nameInput.value.trim();
+    var phone = phoneInput.value.trim();
+    var note = noteInput.value.trim();
+    var attending = form.querySelector('input[name="attending"]:checked');
+    var firstInvalid = null;
+
+    if (name.length < 2) {
+      setError(nameInput, document.getElementById('rsvp-name-error'), 'Please tell us your name');
+      firstInvalid = firstInvalid || nameInput;
+    }
+
+    if (phone && phone.replace(/\D/g, '').length < 7) {
+      setError(phoneInput, document.getElementById('rsvp-phone-error'), 'Please enter a valid number');
+      firstInvalid = firstInvalid || phoneInput;
+    }
+
+    if (!attending) {
+      setError(null, document.getElementById('rsvp-attending-error'), 'Please let us know if you can attend');
+      if (choicesWrap) choicesWrap.classList.add('invalid');
+      firstInvalid = firstInvalid || choicesWrap;
+    }
+
+    if (firstInvalid) {
+      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof firstInvalid.focus === 'function') firstInvalid.focus({ preventScroll: true });
+      return;
+    }
+
+    var data = {
+      name: name,
+      phone: phone,
+      guests: count,
+      attending: attending.value,
+      note: note
+    };
+
+    /* Send data to Google Sheets via Apps Script Webhook */
+    if (GOOGLE_SCRIPT_URL) {
+      try {
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).catch(function (err) {
+          console.warn('Google Sheet submission notice:', err);
+        });
+      } catch (e) {
+        console.warn('Google Sheet fetch error:', e);
+      }
+    }
+
+    /* Swap the form for the confirmation panel */
+    form.hidden = true;
+    success.hidden = false;
+
+    summary.innerHTML = '';
+    addRow('Name', data.name);
+    addRow('Guests', String(data.guests));
+    addRow('Attending', data.attending === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline');
+    if (data.phone) addRow('Phone', data.phone);
+
+    successMsg.textContent = data.attending === 'yes'
+      ? 'We look forward to celebrating with you, Insha Allah.'
+      : 'Thank you for your kind wishes from afar.';
+
+    celebrate();
+  });
+
+  /* ── Edit response ── */
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      success.hidden = true;
+      form.hidden = false;
+      summary.innerHTML = '';
+      clearErrors();
+      nameInput.focus();
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+
+  /* ── Submit button label ── */
+  if (submitText) {
+    submitText.textContent = 'Send My RSVP';
+  }
 })();
