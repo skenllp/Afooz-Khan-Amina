@@ -82,7 +82,10 @@
     overlay.style.pointerEvents = 'all';
     overlay.classList.add('active');
 
-    // Play
+    // Trigger load now (preload="none" means browser waits until explicitly told)
+    video.load();
+
+    // Play once metadata is ready
     video.play().catch(function () {
       // Autoplay blocked – show native controls as fallback
       video.controls = true;

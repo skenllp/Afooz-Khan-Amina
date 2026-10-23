@@ -4,6 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- DNS prefetch for external origins -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="https://www.google.com" />
+
+  <!-- Preload critical above-the-fold assets -->
+  <link rel="preload" href="intro-frame.webp" as="image" type="image/webp" fetchpriority="high" />
+  <link rel="preload" href="Ocean Delight.ttf" as="font" type="font/truetype" crossorigin="anonymous" />
   <title>Wedding Invitation – Afrooz khan &amp; Amina | 16.11.2026</title>
   <meta name="description"
     content="You are cordially invited to the Walima wedding of Afrooz khan &amp; Amina on Monday, 16 November 2026 at Win Touch, Palm Meadows, Kasaragod." />
@@ -28,16 +37,20 @@
   <meta name="twitter:description" content="Monday, 16 November 2026 · Win Touch, Palm Meadows, Kasaragod" />
   <meta name="twitter:image" content="https://afooz-khan-amina.vercel.app/og.jpg" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts – preconnect + deferred load to avoid render-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Pinyon+Script&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Noto+Serif+Malayalam:wght@300;400;500;600&family=Scheherazade+New:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Pinyon+Script&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Noto+Serif+Malayalam:wght@300;400;500;600&family=Scheherazade+New:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet" />
+  </noscript>
 
-  <!-- Canvas Confetti Library (sini-suvin party popper style) -->
-  <script src="confetti.browser.min.js"></script>
-  <script>window.confetti || document.write('<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"><\/script>')</script>
+  <!-- Canvas Confetti Library – deferred, not needed for initial render -->
+  <script src="confetti.browser.min.js" defer></script>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
@@ -81,7 +94,7 @@
        VIDEO OVERLAY  (fullscreen intro video)
   ═══════════════════════════════════════════ -->
   <div id="video-overlay" aria-label="Wedding intro video" role="dialog" aria-modal="true">
-    <video id="reveal-video" playsinline webkit-playsinline preload="auto" disablepictureinpicture muted
+    <video id="reveal-video" playsinline webkit-playsinline preload="none" disablepictureinpicture muted
       aria-label="Afrooz khan and Amina wedding intro video">
       <source src="afooz-amina.mp4" type="video/mp4" />
     </video>
