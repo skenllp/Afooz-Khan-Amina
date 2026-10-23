@@ -34,59 +34,42 @@
   window.addEventListener('pagehide', stopAudio);
   window.addEventListener('beforeunload', stopAudio);
 
-  /* ── Step 2: video ends or skip → crossfade into hero ── */
+  /* ── Step 2: video ends or skip → jump straight to hero ── */
   function goToHero() {
     if (dismissed) return;
     dismissed = true;
 
     clearTimeout(skipTimer);
-    skipBtn.style.display = 'none';
 
-    // 1) Scroll hero into position instantly (no animation yet, it's hidden behind overlay)
+    // Scroll hero into view, then instantly remove overlay
     hero.scrollIntoView({ behavior: 'instant' });
-
-    // 2) Fade the white mask over the video (0 → 1 over 600 ms)
-    if (fadeMask) {
-      fadeMask.style.transition = 'opacity 0.6s ease';
-      fadeMask.classList.add('active');
-    }
-
-    // 3) After white mask covers video, fade the whole overlay out → reveals hero underneath
-    setTimeout(function () {
-      overlay.style.transition = 'opacity 0.7s ease';
-      overlay.style.opacity = '0';
-
-      // 4) After overlay gone, clean up DOM
-      setTimeout(function () {
-        overlay.style.display = 'none';
-        cover.remove();
-        overlay.remove();
-      }, 720);
-    }, 580);
+    overlay.style.display = 'none';
+    if (cover && cover.parentNode) cover.remove();
+    overlay.remove();
   }
 
-  /* ── Step 1: button click → hide cover, show & play video ── */
+  /* ── Step 1: button click → hide cover, play video immediately ── */
   function startVideo() {
     openBtn.disabled = true;
 
     // Start background music
     playAudio();
 
-    // Hide cover instantly — no fade to prevent black flash
+    // Hide cover instantly — no fade
     cover.style.display = 'none';
 
-    // Show video overlay immediately (no opacity transition)
+    // Show video overlay immediately
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
     overlay.classList.add('active');
 
-    // Trigger load now (preload="none" means browser waits until explicitly told)
-    video.load();
-
-    // Play once metadata is ready
+    // Play — video is already buffering in background since page load
     video.play().catch(function () {
-      // Autoplay blocked – show native controls as fallback
-      video.controls = true;
+      // Autoplay blocked — load now as fallback then retry
+      video.load();
+      video.play().catch(function () {
+        video.controls = true;
+      });
     });
 
     // Show skip button after 2 s
@@ -107,6 +90,21 @@
       goToHero();
     }
   });
+
+  // ── Background-load the video after page is interactive ──
+  // Starts buffering silently so the video plays instantly on button click.
+  // Uses requestIdleCallback if available, otherwise a 1.5s delay.
+  var startBgLoad = function () {
+    if (video.preload === 'none' || video.readyState === 0) {
+      video.preload = 'auto';
+      video.load();
+    }
+  };
+  if (window.requestIdleCallback) {
+    requestIdleCallback(startBgLoad, { timeout: 1500 });
+  } else {
+    setTimeout(startBgLoad, 1500);
+  }
 })();
 
 
