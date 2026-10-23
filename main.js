@@ -72,12 +72,10 @@
     // Start background music
     playAudio();
 
-    // Instantly hide the cover
-    cover.style.transition = 'opacity 0.35s ease';
-    cover.style.opacity = '0';
-    cover.style.pointerEvents = 'none';
+    // Hide cover instantly — no fade to prevent black flash
+    cover.style.display = 'none';
 
-    // Show video overlay on top (z-index 1001)
+    // Show video overlay immediately (no opacity transition)
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
     overlay.classList.add('active');

@@ -260,13 +260,13 @@ body {
   position: fixed;
   inset: 0;
   z-index: 1001;
-  background: #000;
+  background: #FAF6EE;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: none;
 }
 
 #video-overlay.active {
