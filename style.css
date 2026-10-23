@@ -98,7 +98,7 @@ body {
 .cover-bg {
   position: absolute;
   inset: 0;
-  background-image: url('intro-frame.png');
+  background-image: url('intro-frame.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -345,7 +345,7 @@ body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('mobile.png');
+  background-image: url('mobile.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
